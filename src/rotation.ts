@@ -8,11 +8,7 @@ export class MaintenanceRotation {
 	}
 
 	public rotate() {
-		const currentIndex = this.database.data.currentIndex;
-		const nextIndex =
-			currentIndex + 1 >= this.database.data.team.length ? 0 : currentIndex + 1;
-
-		this.database.data.currentIndex = nextIndex;
+		this.database.data.currentIndex = this.getNextIndex();
 
 		this.database.data.history.push({
 			maintainer: this.getCurrentMaintainer(),
@@ -24,5 +20,13 @@ export class MaintenanceRotation {
 
 	public getCurrentMaintainer() {
 		return this.database.data.team[this.database.data.currentIndex];
+	}
+
+	private getNextIndex() {
+		const currentIndex = this.database.data.currentIndex;
+
+		return currentIndex + 1 >= this.database.data.team.length
+			? 0
+			: currentIndex + 1;
 	}
 }
