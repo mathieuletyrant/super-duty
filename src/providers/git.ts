@@ -5,7 +5,7 @@ export class GitProvider {
 	/**
 	 * Add a file to the git staging area
 	 */
-	static add(file: string): void {
+	static Add(file: string): void {
 		const command = `git add ${file}`;
 
 		execSync(command);
@@ -15,8 +15,18 @@ export class GitProvider {
 	/**
 	 * Create a git commit with the given message
 	 */
-	static commit(message: string): void {
+	static Commit(message: string): void {
 		const command = `git commit -m "${message}"`;
+
+		execSync(command);
+		return;
+	}
+
+	/**
+	 * Setup the user name and email for git
+	 */
+	static SetupWhoami(name: string, email: string): void {
+		const command = `git config user.name "${name}" && git config user.email "${email}"`;
 
 		execSync(command);
 		return;
@@ -25,7 +35,7 @@ export class GitProvider {
 	/**
 	 * Push the changes to the remote repository
 	 */
-	static push(): void {
+	static Push(): void {
 		execSync('git push');
 		return;
 	}

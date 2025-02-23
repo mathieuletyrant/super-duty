@@ -12,8 +12,10 @@ const init = async () => {
 
 	console.log('New Maintainer:', maintenance.getCurrentMaintainer());
 
-	GitProvider.add('./database.json');
-	GitProvider.commit('Update maintainer');
+	GitProvider.SetupWhoami('Maintainer', 'mathieu.letyrant@gmail.com');
+	GitProvider.Add('./database.json');
+	GitProvider.Commit('Update maintainer');
+	GitProvider.Push();
 };
 
 init();
