@@ -1,0 +1,32 @@
+name: Weekly Rotation Schedule
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'  # Every Monday at 9:00 AM
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  update-rotation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - uses: pnpm/action-setup@v2
+        with:
+          version: '10'
+      
+      - name: Install dependencies
+        run: pnpm install
+      
+      - name: Build TypeScript
+        run: pnpm build
+      
+      - name: Run rotation script
+        run: node dist/index.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
