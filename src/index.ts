@@ -1,4 +1,4 @@
-import { GitProvider } from './providers/git.js';
+// import { GitProvider } from './providers/git.js';
 
 import { MaintenanceRotation } from './rotation.js';
 
@@ -12,10 +12,10 @@ const init = async () => {
 
 	console.log('New Maintainer:', maintenance.getCurrentMaintainer());
 
-	GitProvider.SetupWhoami('Maintainer', 'mathieu.letyrant@gmail.com');
-	GitProvider.Add('./database.json');
-	GitProvider.Commit('Update maintainer');
-	GitProvider.Push();
+	// GitProvider.SetupWhoami('Maintainer', 'mathieu.letyrant@gmail.com');
+	// GitProvider.Add('./database.json');
+	// GitProvider.Commit('Update maintainer');
+	// GitProvider.Push();
 };
 
 init();
