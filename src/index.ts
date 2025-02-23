@@ -1,2 +1,14 @@
-console.log('🦸‍♂️ Super Duty is running!');
-console.log('Current date:', new Date().toISOString());
+import { MaintenanceRotation } from './rotation';
+
+const init = async () => {
+	const maintenance = new MaintenanceRotation();
+
+	console.log('Current Maintainer:', maintenance.getCurrentMaintainer());
+
+	maintenance.rotate();
+	console.log('Rotated');
+
+	console.log('New Maintainer:', maintenance.getCurrentMaintainer());
+};
+
+init();
