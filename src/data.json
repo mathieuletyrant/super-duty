@@ -1,0 +1,19 @@
+{
+  "team": ["Alice", "Bob", "Charlie", "David", "Eve"],
+  "currentIndex": 0,
+  "history": [
+    {
+      "maintainer": "Eve",
+      "date": "2024-02-16"
+    },
+    {
+      "maintainer": "David",
+      "date": "2024-02-09"
+    },
+    {
+      "maintainer": "Charlie",
+      "date": "2024-02-02"
+    }
+  ]
+}
+
