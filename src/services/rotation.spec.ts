@@ -1,7 +1,7 @@
 import timekeeper from 'timekeeper';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
-import { getDatabase } from './database';
+import { getDatabase } from '../providers/database';
 import { MaintenanceRotation } from './rotation';
 
 describe('rotation', () => {

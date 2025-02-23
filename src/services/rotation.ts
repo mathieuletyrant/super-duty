@@ -1,4 +1,4 @@
-import { type Database, getDatabase } from './database';
+import { type Database, getDatabase } from '../providers/database';
 
 export class MaintenanceRotation {
 	private database: Database;

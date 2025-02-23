@@ -1,4 +1,4 @@
-import { MaintenanceRotation } from './rotation.js';
+import { MaintenanceRotation } from './services/rotation';
 
 const init = async () => {
 	const maintenance = new MaintenanceRotation();

@@ -16,7 +16,7 @@ export type Database = ReturnType<typeof getDatabase>;
 
 export const getDatabase = (defaultDatabase?: DatabaseSchema) => {
 	return JSONFileSyncPreset<DatabaseSchema>(
-		path.join(__dirname, '..', 'database.json'),
+		path.join(__dirname, '..', '..', 'database.json'),
 		defaultDatabase ?? {
 			team: [],
 			currentIndex: 0,
