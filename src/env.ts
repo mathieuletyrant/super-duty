@@ -1,8 +1,9 @@
 import { z } from 'zod';
 
 const envSchema = z.object({
-	GOOGLE_API_KEY: z.string().min(1),
-	GOOGLE_CALENDAR_ID: z.string().min(1),
+	GOOGLE_API_KEY: z.string().optional(),
+	GOOGLE_CALENDAR_ID: z.string().optional(),
+
 	GITHUB_TOKEN: z.string().min(1),
 });
 
