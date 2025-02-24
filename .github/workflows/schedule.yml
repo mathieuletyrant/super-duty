@@ -24,4 +24,6 @@ jobs:
       - name: Run rotation script
         run: pnpm tsx src/index.ts
         env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_CALENDAR_ID: ${{ secrets.GOOGLE_CALENDAR_ID }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
