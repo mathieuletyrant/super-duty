@@ -6,7 +6,9 @@
   "scripts": {
     "test": "vitest",
     "test:watch": "vitest watch",
-    "start": "pnpm tsx ./src/index.ts"
+    "start": "pnpm tsx ./src/index.ts",
+    "format": "biome format",
+    "lint": "biome lint"
   },
   "dependencies": {
     "@googleapis/calendar": "^9.7.9",

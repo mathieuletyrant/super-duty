@@ -1,10 +1,5 @@
 {
-  "team": [
-    "Mathieu",
-    "Valentin",
-    "Vincent",
-    "Anthony"
-  ],
+  "team": ["Mathieu", "Valentin", "Vincent", "Anthony"],
   "currentIndex": 1,
   "history": [
     {
