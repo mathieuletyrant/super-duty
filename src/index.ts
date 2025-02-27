@@ -1,9 +1,9 @@
+import { ICSGenerator } from './domains/calendar/ICSGenerator';
 import { validateEnv } from './env';
-import { MaintenanceRotation } from './services/rotation';
+import { getInfrastructureInstances } from './infrastructure';
 
 const init = async () => {
-  const env = validateEnv();
-  const maintenance = new MaintenanceRotation();
+  const { rotation: maintenance, gitRepository } = getInfrastructureInstances();
 
   console.log('Current Maintainer:', maintenance.getCurrentMaintainer());
 
@@ -11,7 +11,14 @@ const init = async () => {
   maintenance.rotate();
   console.log('Rotated');
 
-  console.log('New Maintainer:', maintenance.getCurrentMaintainer());
+  const currentMaintainer = maintenance.getCurrentMaintainer();
+  console.log('New Maintainer:', currentMaintainer);
+
+  // Générer un fichier ICS pour la période de support
+  const startDate = new Date();
+  const endDate = new Date(startDate);
+  endDate.setDate(startDate.getDate() + 7); // Exemple : période de 7 jours
+  ICSGenerator.generateICS(currentMaintainer, startDate, endDate);
 
   // GitProvider.SetupWhoami(env.GIT_USER_NAME, env.GIT_USER_EMAIL);
   // GitProvider.Add('./database.json');
