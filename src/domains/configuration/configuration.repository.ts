@@ -4,6 +4,8 @@ export const configurationSchema = z.object({
   GITHUB_TOKEN: z.string().min(1),
   GIT_USER_NAME: z.string().min(1),
   GIT_USER_EMAIL: z.string().min(1),
+  GITHUB_OWNER: z.string().min(1),
+  GITHUB_REPO: z.string().min(1),
 });
 
 export type Configuration = z.infer<typeof configurationSchema>;

@@ -5,23 +5,24 @@
   "packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af",
   "scripts": {
     "test": "vitest",
-    "build": "tsc && tsc-alias",
+    "build": "tsc -p tsconfig.production.json && tsc-alias -p tsconfig.production.json",
     "test:watch": "vitest watch",
     "start": "pnpm tsx ./src/index.ts",
     "format": "biome format",
     "lint": "biome lint"
   },
   "dependencies": {
+    "@octokit/rest": "^21.1.1",
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.7",
     "lowdb": "^7.0.1",
-    "tsc-alias": "^1.8.11",
     "zod": "^3.24.2"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/node": "22.13.5",
     "timekeeper": "^2.3.1",
+    "tsc-alias": "^1.8.11",
     "tsx": "^4.19.3",
     "typescript": "^5.7.3",
     "vitest": "^3.0.6"

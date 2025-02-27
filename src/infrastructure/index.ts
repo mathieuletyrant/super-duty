@@ -1,16 +1,23 @@
 import type { ConfigurationRepository } from '@/domains/configuration';
-import type { DatabaseRepository } from '@/domains/support';
-import type { GitRepository } from '@/domains/vcs';
+import type {
+  DatabaseRepository,
+  RotationRepository,
+  VacationRepository,
+} from '@/domains/support';
+import type { CodeRepository } from '@/domains/vcs';
+import { Octokit } from '@octokit/rest';
 import { Config } from './config';
 import { LocalDatabaseRepository } from './filesystemDatabase/localDatabase.repository';
-import { GitShellRepository } from './git/gitShell.repository';
+import { GitCodeRepository } from './git/gitCode.repository';
+import { GitHubIssuesRepository } from './github/githubIssues.repository';
 import { MaintenanceRotation } from './rotation/rotation';
 
 export interface InfrastructureInstances {
   databaseRepository: DatabaseRepository;
-  rotation: MaintenanceRotation;
-  gitRepository: GitRepository;
+  rotation: RotationRepository;
+  codeRepository: CodeRepository;
   config: ConfigurationRepository;
+  vacationRepository: VacationRepository;
 }
 
 let infrastructureInstances: InfrastructureInstances | undefined;
@@ -18,12 +25,16 @@ let infrastructureInstances: InfrastructureInstances | undefined;
 const buildInfrastructureInstances = (): InfrastructureInstances => {
   const databaseRepository = new LocalDatabaseRepository();
   const config = new Config();
-  const gitRepository = new GitShellRepository(config);
+  const codeRepository = new GitCodeRepository(config);
+  const githubClient = new Octokit({ auth: config.getConfig().GITHUB_TOKEN });
+  const vacationRepository = new GitHubIssuesRepository(githubClient, config);
+
   return {
     databaseRepository,
     rotation: new MaintenanceRotation({ databaseRepository }),
     config,
-    gitRepository,
+    codeRepository,
+    vacationRepository,
   };
 };
 

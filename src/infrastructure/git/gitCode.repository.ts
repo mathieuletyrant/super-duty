@@ -1,9 +1,9 @@
 import { execSync } from 'node:child_process';
 
 import type { ConfigurationRepository } from '@/domains/configuration';
-import type { GitRepository } from '@/domains/vcs';
+import type { CodeRepository } from '@/domains/vcs';
 
-export class GitShellRepository implements GitRepository {
+export class GitCodeRepository implements CodeRepository {
   constructor(private readonly config: ConfigurationRepository) {
     this.setupWhoami({
       name: this.config.getConfig().GIT_USER_NAME,
