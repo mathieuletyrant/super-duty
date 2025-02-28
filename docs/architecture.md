@@ -9,10 +9,7 @@ Super Duty follows a Domain-Driven Design (DDD) architecture, which separates co
 ```
 src/
 ├── domains/ # Business logic and domain rules
-│ ├── calendar/ # Calendar-related domain logic
-│ └── support/ # Support rotation domain logic
 ├── infrastructure/ # Implementation details
-│ └── filesystemDatabase/ # Database implementation
 ├── providers/ # Utility services
 └── index.ts # Application entry point
 ```

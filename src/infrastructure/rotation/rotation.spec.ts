@@ -1,14 +1,19 @@
 import timekeeper from 'timekeeper';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
-import { getDatabase } from '../providers/database';
-import { MaintenanceRotation } from '../services/rotation';
+import type { DatabaseRepository } from '@/domains/support';
+import type { FakeDatabaseRepository } from '../../../__tests__/fakes/database.repository.fake';
+import { getFakeInstances } from '../../../__tests__/instances.fake';
+import { MaintenanceRotation } from './rotation';
 
 describe('rotation', () => {
   const today = new Date('2021-01-01T01:00:00.000Z');
 
+  let databaseRepository: FakeDatabaseRepository;
+
   beforeEach(() => {
     timekeeper.freeze(today);
+    databaseRepository = getFakeInstances().databaseRepository;
   });
 
   afterEach(() => {
@@ -17,13 +22,13 @@ describe('rotation', () => {
 
   it('should update the current maintainer and push new history', () => {
     // GIVEN
-    const database = getDatabase({
-      team: ['Mathieu', 'John', 'Jane'],
+    databaseRepository.setInitialData({
+      team: ['Mathieu', 'John'],
       currentIndex: 0,
       history: [],
     });
 
-    const rotation = new MaintenanceRotation({ database });
+    const rotation = new MaintenanceRotation({ databaseRepository });
     expect(rotation.getCurrentMaintainer()).toBe('Mathieu');
 
     // WHEN
@@ -31,7 +36,7 @@ describe('rotation', () => {
 
     // THEN
     expect(rotation.getCurrentMaintainer()).toBe('John');
-    expect(database.data.history[0]).toEqual({
+    expect(databaseRepository.getHistory()[0]).toEqual({
       maintainer: 'John',
       date: today.toISOString(),
     });
@@ -39,13 +44,13 @@ describe('rotation', () => {
 
   it('should reset the maintainer to the first one after the last one', () => {
     // GIVEN
-    const database = getDatabase({
+    databaseRepository.setInitialData({
       team: ['Mathieu', 'John'],
       currentIndex: 1,
       history: [],
     });
 
-    const rotation = new MaintenanceRotation({ database });
+    const rotation = new MaintenanceRotation({ databaseRepository });
     expect(rotation.getCurrentMaintainer()).toBe('John');
 
     // WHEN
@@ -53,7 +58,7 @@ describe('rotation', () => {
 
     // THEN
     expect(rotation.getCurrentMaintainer()).toBe('Mathieu');
-    expect(database.data.history[0]).toEqual({
+    expect(databaseRepository.getHistory()[0]).toEqual({
       maintainer: 'Mathieu',
       date: today.toISOString(),
     });

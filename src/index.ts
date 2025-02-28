@@ -1,9 +1,9 @@
 import { ICSGenerator } from './domains/calendar/ICSGenerator';
-import { validateEnv } from './env';
 import { getInfrastructureInstances } from './infrastructure';
 
 const init = async () => {
-  const { rotation: maintenance, gitRepository } = getInfrastructureInstances();
+  const { rotation: maintenance, codeRepository } =
+    getInfrastructureInstances();
 
   console.log('Current Maintainer:', maintenance.getCurrentMaintainer());
 

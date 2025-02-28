@@ -3,7 +3,7 @@
     "target": "ES2020",
     "module": "CommonJS",
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": ".",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -12,6 +12,14 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*",
+    "__tests__/fakes/code.repository.fake.ts",
+    "__tests__/fakes/configuration.repository.fake.ts",
+    "__tests__/fakes/database.repository.fake.ts",
+    "__tests__/fakes/index.ts",
+    "__tests__/fakes/rotation.repository.fake.ts",
+    "__tests__/fakes/vacation.repository.fake.ts"
+  ],
   "exclude": ["node_modules"]
 }

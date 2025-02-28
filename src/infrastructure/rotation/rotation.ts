@@ -1,6 +1,6 @@
-import type { DatabaseRepository } from '../../domains/support/database.repository';
+import type { DatabaseRepository, RotationRepository } from '@/domains/support';
 
-export class MaintenanceRotation {
+export class MaintenanceRotation implements RotationRepository {
   private databaseRepository: DatabaseRepository;
 
   constructor({
@@ -32,5 +32,17 @@ export class MaintenanceRotation {
     return currentIndex + 1 >= this.databaseRepository.getTeam().length
       ? 0
       : currentIndex + 1;
+  }
+
+  public getNextMaintainer() {
+    return this.databaseRepository.getTeam()[this.getNextIndex()];
+  }
+
+  public getCurrentRotationPeriod() {
+    return new Date(this.databaseRepository.getHistory()[0].date);
+  }
+
+  public getNextRotationPeriod() {
+    return new Date(this.databaseRepository.getHistory()[1].date);
   }
 }
